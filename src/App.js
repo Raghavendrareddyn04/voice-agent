@@ -11,6 +11,11 @@ const STATUS = {
   SPEAKING: "speaking",
 };
 
+function Button({ className = "", ...props }) {
+  const classes = ["btn", className].filter(Boolean).join(" ");
+  return <button className={classes} {...props} />;
+}
+
 function App() {
   const [status, setStatus] = useState(STATUS.IDLE);
   const [conversation, setConversation] = useState([]);
@@ -233,14 +238,10 @@ function App() {
 
             <div className="status-row">
               <div className="status-text">{statusLabel}</div>
-              <button
-                className="stop-button"
-                onClick={stopAll}
-                disabled={status === STATUS.IDLE}
-              >
+              <Button className="btn-ghost" onClick={stopAll} disabled={status === STATUS.IDLE}>
                 <StopCircle size={18} />
                 <span>Stop</span>
-              </button>
+              </Button>
             </div>
 
             {error && <div className="error">{error}</div>}

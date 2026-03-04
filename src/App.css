@@ -263,7 +263,7 @@ body {
   color: var(--text-muted);
 }
 
-.stop-button {
+.btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -278,15 +278,20 @@ body {
     border-color 0.15s ease-out, opacity 0.15s ease-out;
 }
 
-.stop-button:hover:not(:disabled) {
+.btn:hover:not(:disabled) {
   background: rgba(30, 64, 175, 0.9);
   border-color: rgba(191, 219, 254, 0.9);
   transform: translateY(-0.5px);
 }
 
-.stop-button:disabled {
+.btn:disabled {
   opacity: 0.45;
   cursor: default;
+}
+
+.btn-ghost {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(148, 163, 184, 0.6);
 }
 
 .error {
