@@ -23,6 +23,7 @@ function App() {
 
   const recognitionRef = useRef(null);
   const audioRef = useRef(null);
+   const requestIdRef = useRef(0);
 
   const isListening = status === STATUS.LISTENING;
   const isThinking = status === STATUS.THINKING;
@@ -47,6 +48,9 @@ function App() {
         event.results[event.results.length - 1][0].transcript.trim();
       if (!text) return;
 
+      // New AI turn; invalidate any previous pending responses
+      const myRequestId = ++requestIdRef.current;
+
       setConversation((prev) => [
         ...prev,
         { id: Date.now() + "-user", role: "user", text },
@@ -66,6 +70,11 @@ function App() {
 
         if (!response.ok) {
           throw new Error(`Server error: ${response.status}`);
+        }
+
+        // If a newer request started while we were waiting, ignore this response
+        if (requestIdRef.current !== myRequestId) {
+          return;
         }
 
         const audioBlob = await response.blob();
@@ -89,13 +98,11 @@ function App() {
           URL.revokeObjectURL(url);
         };
 
-        audio
-          .play()
-          .catch((e) => {
-            console.error(e);
-            setError("Could not play audio.");
-            setStatus(STATUS.IDLE);
-          });
+        audio.play().catch((e) => {
+          console.error(e);
+          setError("Could not play audio.");
+          setStatus(STATUS.IDLE);
+        });
       } catch (e) {
         console.error(e);
         setError("Something went wrong talking to the server.");
@@ -122,6 +129,9 @@ function App() {
   const startListening = () => {
     if (isListening) return;
 
+    // Interrupt any previous response (speech or pending)
+    requestIdRef.current += 1;
+
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -138,6 +148,9 @@ function App() {
   };
 
   const stopAll = () => {
+    // Invalidate any in-flight response
+    requestIdRef.current += 1;
+
     if (recognitionRef.current) {
       recognitionRef.current.onresult = null;
       recognitionRef.current.stop();
