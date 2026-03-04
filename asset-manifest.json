@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/voice-agent/static/css/main.96ce3fe0.css",
+    "main.js": "/voice-agent/static/js/main.cd2ab5b4.js",
+    "static/js/453.3dc6b84e.chunk.js": "/voice-agent/static/js/453.3dc6b84e.chunk.js",
+    "index.html": "/voice-agent/index.html",
+    "main.96ce3fe0.css.map": "/voice-agent/static/css/main.96ce3fe0.css.map",
+    "main.cd2ab5b4.js.map": "/voice-agent/static/js/main.cd2ab5b4.js.map",
+    "453.3dc6b84e.chunk.js.map": "/voice-agent/static/js/453.3dc6b84e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.96ce3fe0.css",
+    "static/js/main.cd2ab5b4.js"
+  ]
+}
