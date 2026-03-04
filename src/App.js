@@ -188,41 +188,8 @@ function App() {
           <h1>Voice Assistant</h1>
         </header>
 
-        <main className="main">
-          <div className="chat-container">
-            {conversation.length === 0 && (
-              <div className="chat-placeholder">
-                Start speaking to begin a conversation.
-              </div>
-            )}
-            {conversation.map((msg) => (
-              <div
-                key={msg.id}
-                className={`chat-row chat-row-${msg.role}`}
-              >
-                <div className={`chat-bubble chat-bubble-${msg.role}`}>
-                  <div className="chat-role">
-                    {msg.role === "user" ? "You" : "AI"}
-                  </div>
-                  <div className="chat-text">{msg.text}</div>
-                </div>
-              </div>
-            ))}
-            {isThinking && (
-              <div className="chat-row chat-row-assistant">
-                <div className="chat-bubble chat-bubble-assistant thinking-bubble">
-                  <div className="chat-role">AI</div>
-                  <div className="thinking-dots">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="voice-section">
+        <main className="main main-split">
+          <section className="voice-pane">
             <div
               className={[
                 "mic-orb",
@@ -263,14 +230,53 @@ function App() {
 
             <div className="status-row">
               <div className="status-text">{statusLabel}</div>
-              <Button className="btn-ghost" onClick={stopAll} disabled={status === STATUS.IDLE}>
+              <Button
+                className="btn-ghost"
+                onClick={stopAll}
+                disabled={status === STATUS.IDLE}
+              >
                 <StopCircle size={18} />
                 <span>Stop</span>
               </Button>
             </div>
 
             {error && <div className="error">{error}</div>}
-          </div>
+          </section>
+
+          <section className="chat-pane">
+            <div className="chat-container">
+              {conversation.length === 0 && (
+                <div className="chat-placeholder">
+                  Start speaking to begin a conversation.
+                </div>
+              )}
+              {conversation.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`chat-row chat-row-${msg.role}`}
+                >
+                  <div className={`chat-bubble chat-bubble-${msg.role}`}>
+                    <div className="chat-role">
+                      {msg.role === "user" ? "You" : "AI"}
+                    </div>
+                    <div className="chat-text">{msg.text}</div>
+                  </div>
+                </div>
+              ))}
+              {isThinking && (
+                <div className="chat-row chat-row-assistant">
+                  <div className="chat-bubble chat-bubble-assistant thinking-bubble">
+                    <div className="chat-role">AI</div>
+                    <div className="thinking-dots">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
         </main>
       </div>
     </div>
