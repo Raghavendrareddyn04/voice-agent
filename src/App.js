@@ -195,6 +195,18 @@ function App() {
                 </div>
               </div>
             ))}
+            {isThinking && (
+              <div className="chat-row chat-row-assistant">
+                <div className="chat-bubble chat-bubble-assistant thinking-bubble">
+                  <div className="chat-role">AI</div>
+                  <div className="thinking-dots">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="voice-section">
