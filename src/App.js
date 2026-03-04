@@ -23,7 +23,7 @@ function App() {
 
   const recognitionRef = useRef(null);
   const audioRef = useRef(null);
-   const requestIdRef = useRef(0);
+  const requestIdRef = useRef(0);
 
   const isListening = status === STATUS.LISTENING;
   const isThinking = status === STATUS.THINKING;
@@ -144,11 +144,14 @@ function App() {
 
     setError("");
     setStatus(STATUS.LISTENING);
-    recognition.start();
+    try {
+      recognition.start();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const stopAll = () => {
-    // Invalidate any in-flight response
     requestIdRef.current += 1;
 
     if (recognitionRef.current) {
